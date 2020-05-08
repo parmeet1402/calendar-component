@@ -1,0 +1,16 @@
+.event-modal-dialog__container {
+  display: flex;
+  height: 800px;
+}
+.rbc-time-view .rbc-allday-cell {
+  display: none;
+}
+
+.event-modal-dialog__container--left {
+  /* max-width: 50%; */
+  flex: 1;
+}
+
+.event-modal-dialog__container--right {
+  flex: 1;
+}

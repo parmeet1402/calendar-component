@@ -1,0 +1,129 @@
+body {
+  /* background: #222; */
+}
+.calender__container {
+  /* background: #222; */
+  /* height: 900px; */
+  /* width: 50vw; */
+}
+/* 
+.calender__container {
+  height: 500px;
+} */
+
+.calender__container .fc-day-number {
+  font-size: 1.5em;
+  color: #1b1b1b;
+  /* color: #5c005c; */
+}
+.calender__container .fc-view {
+  display: block;
+}
+.calender__container.hide_view .fc-view {
+  display: none;
+}
+
+/* override day title color and size */
+.calender__container .fc-day-header {
+  font-size: 1.5em;
+  /* color: #fff; */
+}
+
+.fc-left .fc-prev-button,
+.fc-left .fc-today-button,
+.fc-left .fc-next-button {
+  background: none;
+  color: black;
+  border: none;
+  text-transform: capitalize;
+}
+
+.fc-left .fc-next-button {
+  margin-left: 0;
+}
+
+.fc-button-primary:not(:disabled):active,
+.fc-button-primary:not(:disabled).fc-button-active,
+.fc-button-primary:not(:disabled):active,
+.fc-button-primary:not(:disabled).fc-button-active {
+  background: none;
+  border: none;
+  color: black;
+}
+
+.fc-button-primary:not(:disabled):active:focus,
+.fc-button-primary:not(:disabled).fc-button-active:focus {
+  box-shadow: none;
+}
+
+.fc-center > h2 {
+  color: #051879;
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.fc-right {
+  border-radius: 0.25em;
+  border: 1px solid #cdcdcd;
+}
+
+.fc-right .fc-dayGridMonth-button {
+  margin-left: 0;
+}
+
+.fc-right .fc-button {
+  background: none;
+  color: #4a4a4a;
+  border: none;
+  border-radius: 0;
+  text-transform: capitalize;
+  padding: 0.4em 0.95em;
+}
+
+.fc-right .fc-button-group .fc-button,
+.fc-right .fc-dayGridMonth-button {
+  border-right: 1px solid #cdcdcd;
+}
+
+.fc-right .fc-myCustomButton-button {
+  margin-left: 0;
+  border-left: 1px solid #cdcdcd !important;
+}
+
+.fc-right .fc-button-primary:focus {
+  box-shadow: none;
+}
+
+.fc-time,
+.fc-title {
+  /* display: none; */
+}
+.fc-time {
+  display: none;
+}
+
+.fc-title {
+  text-overflow: ellipsis;
+}
+
+/* .fc-event {
+  height: 4px;
+  width: 4px;
+  border-radius: 50%;
+}
+ */
+/* .fc-event-container {
+  display: inline-block;
+}
+ */
+
+/* YEAR VIEW */
+.year-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.year-view > p {
+  justify-self: center;
+  align-self: center;
+  /* align-self: flex-start; */
+}

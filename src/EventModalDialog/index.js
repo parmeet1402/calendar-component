@@ -1,14 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Calendar, momentLocalizer, Navigate } from "react-big-calendar";
 import events from "../Calendar2/events";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./style.css";
-const Toolbar = props => {
-  console.log(props);
+const Toolbar = ({ setSelectedDate, selectedDate }) => props => {
+  const goBack = () => {
+    setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 1)));
+  };
+
+  const goForward = () => {
+    setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() + 1)));
+  };
+
   return (
-    <h1 onClick={() => props.onNavigate(props.date, "PREV")}>{props.label}</h1>
+    <>
+      <h1 style={{ cursor: "pointer" }} onClick={goBack}>
+        Left
+      </h1>
+      <h1>{props.label}</h1>
+      <h1 style={{ cursor: "pointer" }} onClick={goForward}>
+        Right
+      </h1>
+    </>
   );
 };
 const EventModalDialog = props => {
@@ -16,11 +31,39 @@ const EventModalDialog = props => {
   const formats = {
     dayHeaderFormat: "Do MMM YYYY"
   };
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedEvent, setSelectedEvent] = useState();
+  const [todaysEvent, setTodaysEvent] = useState([]);
+  useEffect(() => {
+    setTodaysEvent(findEventsForTheDay(selectedDate));
+  }, []);
+
+  useEffect(() => {
+    setTodaysEvent(findEventsForTheDay(selectedDate));
+  }, [selectedDate]);
+
+  useEffect(() => {
+    if (todaysEvent.length === 0) {
+      setSelectedEvent();
+    } else {
+      setSelectedEvent(todaysEvent[0]);
+    }
+  }, [todaysEvent]);
 
   let components = {
-    toolbar: Toolbar
+    toolbar: Toolbar({ setSelectedDate, selectedDate })
   };
-  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const findEventsForTheDay = date => {
+    return events.filter(
+      item =>
+        item.start.getDate() === date.getDate() &&
+        item.start.getMonth() === date.getMonth() &&
+        item.start.getFullYear() === date.getFullYear()
+    );
+  };
+
+  const getTimeString = date => `${date.getHours()}:${date.getMinutes()}`;
 
   return (
     <div className="event-modal-dialog__container">
@@ -36,17 +79,28 @@ const EventModalDialog = props => {
           }}
           date={selectedDate}
           formats={formats}
+          onSelectEvent={e => setSelectedEvent(e)}
           // messages={{ year: "Year" }}
         />
       </div>
-      <div className="event-modal-dialog__container--right">
-        <h3>Review W/o</h3>
-        <span>12:00/13:00</span>
-        <p>
-          sdafasd sdakfdasf sdafsa fdsakfa dsafkdasfdas dsafdamsf adslfdsanfjds
-          fsdakjf dsajfkdsakfndsakjfdas fksad fjkas jfdksaj fkjsad jkf sadjf kjs
-        </p>
-      </div>
+      {todaysEvent.length === 0 ? (
+        <div className="event-modal-dialog__container--right">
+          <span>No events for the day</span>
+        </div>
+      ) : selectedEvent ? (
+        <div className="event-modal-dialog__container--right">
+          <h3>{selectedEvent["title"]}</h3>
+          <span>
+            {getTimeString(selectedEvent["start"])}/
+            {getTimeString(selectedEvent["end"])}
+          </span>
+          <p>{selectedEvent["description"]}</p>
+        </div>
+      ) : (
+        <div className="event-modal-dialog__container--right">
+          <span>Please select an event for the day</span>
+        </div>
+      )}
     </div>
   );
 };

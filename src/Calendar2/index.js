@@ -15,8 +15,8 @@ const Calendar2 = props => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   return (
     <>
-      <div className="big-calendar__wrapper">
-        <Calendar
+      {/* <div className="big-calendar__wrapper"> */}
+      {/* <Calendar
           localizer={localizer}
           events={events}
           toolbar={true}
@@ -37,9 +37,9 @@ const Calendar2 = props => {
           onSelecting={() => console.log("ON SELECTING")}
           messages={{ year: "Year" }}
           onSelectDate={e => console.log("ON SELECT DAY", e)}
-        />
-      </div>
-      {/* <EventModalDialog /> */}
+        /> */}
+      {/* </div> */}
+      <EventModalDialog />
     </>
   );
 };
